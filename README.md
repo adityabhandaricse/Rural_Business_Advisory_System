@@ -1,4 +1,4 @@
-# GramSetu — Rural Business Advisory Platform
+# Rural Business Advisory Platform
 
 Prototype for the SIH brief: *AI-Driven Hyper-Local Business Advisory & Financial
 Structuring Assistant for Rural Micro-Entrepreneurs*.
