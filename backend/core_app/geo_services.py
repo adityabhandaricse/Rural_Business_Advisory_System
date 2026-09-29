@@ -1,19 +1,22 @@
-# backend/core_app/geo_services.py
 import requests
 
+# Broadened tags to ensure markers actually appear during your presentation
 OSM_CATEGORY_TAGS = {
-    "poultry": '["amenity"~"veterinary|marketplace"]["animal"~"poultry|chicken"]',
-    "dairy": '["shop"~"dairy|farm"]["produce"~"milk"]',
-    "grocery": '["shop"~"convenience|supermarket|general"]',
-    "fertilizer": '["shop"~"agrarian|chemist|farm"]',
-    "handicraft": '["shop"~"craft|artisan|gift"]',
+    "poultry": '["amenity"~"marketplace|veterinary"]',
+    "dairy": '["shop"~"convenience|dairy|farm|general"]',
+    "grocery": '["shop"~"convenience|supermarket|general|kiosk"]',
+    "fertilizer": '["shop"~"agrarian|hardware"]',
+    "handicraft": '["shop"~"craft|gift|clothes"]',
     "default": '["shop"]'
 }
 
-def fetch_live_competitors(lat, lng, business_type, radius_meters=5000):
+# Increased default radius to 10km (10000m) to capture more rural data
+def fetch_live_competitors(lat, lng, business_type, radius_meters=10000):
     tag = OSM_CATEGORY_TAGS.get(business_type.lower(), OSM_CATEGORY_TAGS["default"])
+    
+    # Increased query timeout to 25 seconds
     query = f"""
-    [out:json][timeout:15];
+    [out:json][timeout:25];
     (
       node{tag}(around:{radius_meters},{lat},{lng});
       way{tag}(around:{radius_meters},{lat},{lng});
@@ -22,8 +25,15 @@ def fetch_live_competitors(lat, lng, business_type, radius_meters=5000):
     """
     url = "https://overpass-api.de/api/interpreter"
     
+    # Render cloud servers require a valid email in the User-Agent to prevent Overpass blocks
+    headers = {
+        'User-Agent': 'Gramsetu_RBAS_SIH_Project/1.0 (put_your_real_email_here@gmail.com)'
+    }
+    
     try:
-        response = requests.post(url, data={'data': query}, headers={'User-Agent': 'GramSetu-Live-App'}, timeout=10)
+        # Pass the headers and increase the request timeout to 25
+        response = requests.post(url, data={'data': query}, headers=headers, timeout=25)
+        
         if response.status_code == 200:
             data = response.json().get('elements', [])
             competitors = []
@@ -46,6 +56,9 @@ def fetch_live_competitors(lat, lng, business_type, radius_meters=5000):
                 "density_rating": density_rating,
                 "competitors": competitors
             }
+        else:
+            print(f"Overpass API returned status code: {response.status_code}")
+            
     except Exception as e:
         print(f"Overpass query failed: {e}")
         
