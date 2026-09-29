@@ -28,7 +28,7 @@ class AdvisoryResponseSchema(BaseModel):
 
 
 def generate_ai_feasibility_study(financial_data: dict, geo_data: dict, business_category: str, language: str = "en") -> dict:
-    api_key = os.getenv("MISTRAL_API_KEY")
+    api_key = os.getenv("mstrl_6O2pLhb9LGD89wskLmgMq0B02L3IXouG_3HaMLm")
     if not api_key:
         logger.warning("MISTRAL_API_KEY missing in environment. Engaging deterministic fallback immediately.")
         return _build_fallback(financial_data, geo_data, business_category)

@@ -119,4 +119,4 @@ SIMPLE_JWT = {
 }
 
 # Safe env extraction (won't crash if missing)
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+GEMINI_API_KEY = os.environ.get('mstrl_6O2pLhb9LGD89wskLmgMq0B02L3IXouG_3HaMLm', '')
