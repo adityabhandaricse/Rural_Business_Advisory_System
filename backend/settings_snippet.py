@@ -48,4 +48,4 @@ DATABASES = {
     }
 }
 
-GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]  # required by ai_services.py
+GEMINI_API_KEY = os.environ["mstrl_6O2pLhb9LGD89wskLmgMq0B02L3IXouG_3HaMLm"]  # required by ai_services.py
