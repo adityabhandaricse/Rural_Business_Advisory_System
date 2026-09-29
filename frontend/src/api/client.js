@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Default to http://127.0.0.1:8000/api if no environment variable is defined
-const rawBaseURL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api";
+const rawBaseURL = import.meta.env.VITE_API_BASE_URL || "https://rural-business-advisory-system.onrender.com";
 const cleanBaseURL = rawBaseURL.replace(/\/+$/, ""); // Remove trailing slash
 
 const api = axios.create({
