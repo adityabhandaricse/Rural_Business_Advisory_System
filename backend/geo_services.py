@@ -7,7 +7,7 @@ import requests
 from .calculators import haversine_km, saturation_index
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-TIMEOUT_S = 25
+TIMEOUT_S = 15
 
 
 def build_overpass_query(lat: float, lon: float, radius_m: int, osm_tags: list[str]) -> str:
